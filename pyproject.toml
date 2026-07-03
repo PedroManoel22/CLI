@@ -20,8 +20,6 @@ task = "task.cli:run"
 [project.optional-dependencies]
 dev = ["ruff", "pyright", "pytest", "pytest-xdist"]
 
-[tool.setuptools.packages.find]
-where = ["src"]
 
 # ============================
 # Lint e formatação (Ruff)
