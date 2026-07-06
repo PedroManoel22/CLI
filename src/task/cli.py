@@ -4,6 +4,7 @@ import textwrap
 import rich_argparse
 
 from task.settings import clear
+from task.validation import validate_str
 
 
 def build_parser() -> None:
@@ -44,6 +45,42 @@ def build_parser() -> None:
         You can also combine options freely to match your workflow.
         Tags help with filtering later. Priorities can be: low, medium, high."""),
         formatter_class=rich_argparse.RawDescriptionRichHelpFormatter,
+    )
+    create_parser.set_defaults(command="create")
+
+    create_parser.add_argument(
+        "-t",
+        "--task",
+        type=validate_str,
+        help="Describes your task",
+        required=True,
+        metavar="Task",
+    )
+
+    create_parser.add_argument(
+        "--done",
+        "--no-done",
+        help="Marks a task as complete",
+        action=argparse.BooleanOptionalAction,
+        default=False,
+    )
+
+    create_parser.add_argument(
+        "--tag",
+        help="Adds tags to your tasks for organization",
+        action="extend",
+        type=validate_str,
+        nargs="*",  # zero ou muitos
+        default=[],
+        dest="tags",
+    )
+
+    create_parser.add_argument(
+        "-p",
+        "--priority",
+        choices=["low", "medium", "high"],
+        default="medium",
+        help="Sets the priority for your task",
     )
 
     return parser
