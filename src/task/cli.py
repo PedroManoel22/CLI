@@ -3,6 +3,7 @@ import textwrap
 
 import rich_argparse
 
+from task.runners import DefaultRunner
 from task.settings import clear
 from task.validation import validate_str
 
@@ -91,7 +92,11 @@ def run() -> None:
     parser = build_parser()
 
     args = parser.parse_args()
-    print(args)
+
+    default_runner = DefaultRunner()
+    getattr(default_runner, args.command)(args)
+
+    # print(args)
 
 
 if __name__ == "__main__":

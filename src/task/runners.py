@@ -10,14 +10,15 @@ from task.repository import map_dict_to_task_params, task_repository
 class DefaultRunner:
     def create(self, args: argparse.Namespace) -> None:
         arguments = vars(args)
+        print(arguments)
         task_dict_param = map_dict_to_task_params(arguments)
-        created = task_repository.create(task_dict_param)
+        # created = task_repository.create(task_dict_param)
 
-        if created:
-            log_task_table(task_repository.find_all())
-            print()
-            log_success("Created!")
-        print()
+        # if created:
+        #     log_task_table(task_repository.find_all())
+        #     print()
+        #     log_success("Created!")
+        # print()
 
     def all(self, *args: tuple[Any, ...], **kwargs: dict[Any, Any]) -> None:
         log_task_table(task_repository.find_all())
