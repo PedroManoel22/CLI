@@ -27,6 +27,8 @@ def build_parser() -> None:
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    # PARSER CREATE
+
     create_parser = subparsers.add_parser(
         "create",
         aliases=["new", "add"],
@@ -84,17 +86,24 @@ def build_parser() -> None:
         help="Sets the priority for your task",
     )
 
+    # PARSER ALL
+    subparsers.add_parser(
+        "all",
+        help="Show all task",
+        description=textwrap.dedent("Show all task"),
+        formatter_class=rich_argparse.RawDescriptionRichHelpFormatter,
+    )
+
     return parser
 
 
 def run() -> None:
     clear()  # limpa o terminal
     parser = build_parser()
-
     args = parser.parse_args()
 
     default_runner = DefaultRunner()
-    getattr(default_runner, args.command)(args)
+    # getattr(default_runner, args.command)(args)
 
     # print(args)
 
