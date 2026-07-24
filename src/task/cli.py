@@ -157,6 +157,25 @@ def build_parser() -> None:
         type=validate_positive_int,
     )
 
+    # PARSER DELETE
+    delete_parser = subparsers.add_parser(
+        "delete",
+        description="Deletes one task by id",
+        help="Deletes one task by id",
+        formatter_class=rich_argparse.RawDescriptionRichHelpFormatter,
+    )
+
+    delete_parser.add_argument(
+        "-i", "--task-id", help="Task ID", required=True, type=validate_positive_int
+    )
+
+    delete_parser.add_argument(
+        "-f",
+        "--force",
+        help="Removes the confirmation when deleting tasks",
+        action="store_true",
+    )
+
     return parser
 
 
